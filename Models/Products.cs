@@ -1,26 +1,20 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace Models
 {
     public class Products
     {
-        public Products() {}
-
-        public Products(string name, decimal price, string description, int productId)
-        {
-            this.Name = name;
-            this.Price = price;
-            this.Description = description;
-            this.ProductId = productId;
-        }
+        [Key]
+        public int ProductId { get; set; }
         public string Name {get; set;}
 
         public decimal Price {get; set;}
         public string Description {get; set;}
 
-        public int ProductId {get; set;}
+        
 
         public List<Inventory> Inventory {get; set;}
 

@@ -1,20 +1,17 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 namespace Models
 {
 public class Inventory
 {
     
-    public Inventory() {}
-
-    public Inventory(int productId, int vendorId, int quantity)
-    {
-        this.ProductId = productId;
-        this.VendorId = vendorId;
-        this.Quantity = quantity;
-    }
+    [Key]
+    public int InventoryId { get; set; }
     public int ProductId {get; set;} 
+
+    public Products Name { get; set; }
 
     public int VendorId {get; set;}
     public int Quantity {get; set;}

@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DL;
+using P0BL;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebUI
 {
@@ -29,6 +32,8 @@ namespace WebUI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<P1DBContext>(options =>
+            options.UseNpgsql(Configuration.GetConnectionString("P1DB")));
             //secondly, you need to configure our db here, and add the db context as a dependency
             //finally, add all the other dependencies like bl and repos
             //this uses inversion of control, which means that we specify what kind of 
