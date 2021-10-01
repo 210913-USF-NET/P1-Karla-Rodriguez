@@ -38,6 +38,9 @@ namespace WebUI
             //finally, add all the other dependencies like bl and repos
             //this uses inversion of control, which means that we specify what kind of 
             //concrete classes implement interfaces
+            services.AddScoped<IRepo, DBRepo>();
+            services.AddScoped<IBL, BL>();
+            //^thats the dependency injection. registering the dependencies that our controllers need
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -11,7 +11,7 @@ namespace DL
     public class P1DBContext : DbContext
     {
         public P1DBContext() : base() { }
-        public P1DBContext(DbContextOptions options) : base(options) { }
+        public P1DBContext(DbContextOptions<P1DBContext> options) : base(options) { }
 
         public DbSet<Customers> Customers { get; set; }
         public DbSet<Inventory> Inventories { get; set; }
