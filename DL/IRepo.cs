@@ -16,16 +16,16 @@ namespace DL
 
         Customers GetOneCustomerById(int id);
 
-        Inventory UpdateInventory(Inventory invToUpdate);
+        //Inventory UpdateInventory(Inventory invToUpdate);
 
-        List<Products> GetAllProducts();
+        //List<Products> GetAllProducts();
 
-        List<Products> SearchProducts(string queryStr);
+        //List<Products> SearchProducts(string queryStr);
 
-        Products GetOneProductById(int id);
+        //Products GetOneProductById(int id);
 
-        List<VendorBranches> GetAllVendorBranches();
-        VendorBranches SelectBranch(int id);
+        //List<VendorBranches> GetAllVendorBranches();
+        //VendorBranches SelectBranch(int id);
 
         
     }

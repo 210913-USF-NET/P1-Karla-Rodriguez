@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Models;
 
-namespace P0BL
+namespace P1BL
 {
     public interface IBL
     {
@@ -18,17 +18,17 @@ namespace P0BL
 
         Customers GetOneCustomerById(int id);
 
-        Products GetOneProductById(int id);
+        //Products GetOneProductById(int id);
 
-        Inventory UpdateInventory(Inventory invToupdate);
+        //Inventory UpdateInventory(Inventory invToupdate);
 
-        List<Products> GetAllProducts();
+        //List<Products> GetAllProducts();
 
-        List<Products> SearchProducts(string queryStr);
+        //List<Products> SearchProducts(string queryStr);
 
-        List<VendorBranches> GetAllVendorBranches();
+        //List<VendorBranches> GetAllVendorBranches();
 
-        VendorBranches SelectBranch(int id);
+        //VendorBranches SelectBranch(int id);
 
         
         

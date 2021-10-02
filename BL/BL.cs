@@ -3,7 +3,7 @@ using Models;
 using DL;
 using System;
 
-namespace P0BL 
+namespace P1BL 
 {
     public class BL : IBL
     {
@@ -39,31 +39,31 @@ namespace P0BL
             return _repo.GetOneCustomerById(id);
         }
 
-        public Inventory UpdateInventory(Inventory invToupdate)
-        {
-            return _repo.UpdateInventory(invToupdate);
-        }
-        public List<Products> GetAllProducts()
-        {
-            return _repo.GetAllProducts();
-        }
+        //public Inventory UpdateInventory(Inventory invToupdate)
+        //{
+        //    return _repo.UpdateInventory(invToupdate);
+        //}
+        //public List<Products> GetAllProducts()
+        //{
+        //    return _repo.GetAllProducts();
+        //}
 
-        public Products GetOneProductById(int id)
-        {
-            return _repo.GetOneProductById(id);
-        }
-        public List<Products> SearchProducts(string queryStr)
-        {
-            return _repo.SearchProducts(queryStr);
-        }
-        public List<VendorBranches> GetAllVendorBranches()
-        {
-            return _repo.GetAllVendorBranches();
-        }
-        public VendorBranches SelectBranch(int id)
-        {
-            return _repo.SelectBranch(id);
-        }
+        //public Products GetOneProductById(int id)
+        //{
+        //    return _repo.GetOneProductById(id);
+        //}
+        //public List<Products> SearchProducts(string queryStr)
+        //{
+        //    return _repo.SearchProducts(queryStr);
+        //}
+        //public List<VendorBranches> GetAllVendorBranches()
+        //{
+        //    return _repo.GetAllVendorBranches();
+        //}
+        //public VendorBranches SelectBranch(int id)
+        //{
+        //    return _repo.SelectBranch(id);
+        //}
 
 
 
