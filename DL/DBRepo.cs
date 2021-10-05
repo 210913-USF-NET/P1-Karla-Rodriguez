@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Model = Models;
-//using Entity = DL.Entities;
+using Models;
+
 using Microsoft.EntityFrameworkCore;
+
+
 
 namespace DL
 {
@@ -16,7 +18,7 @@ namespace DL
             _context = context;
         }
         
-        public Model.Customers AddCustomers(Model.Customers custo)
+        public Customers AddCustomers(Customers custo)
         {
          
             custo = _context.Add(custo).Entity;
@@ -30,76 +32,79 @@ namespace DL
             return custo;
         }
 
-        public List<Model.Customers> GetAllCustomers()
+        public List<Customers> GetAllCustomers()
         {
             
             return _context.Customers
                 .Include("Orders")
                 .Select(
-                customer => new Model.Customers() {
+                customer => new Customers() {
                     CustomerId = customer.CustomerId,
                     FirstName = customer.FirstName,
-                    LastName = customer.LastName
+                    LastName = customer.LastName,
+                    Address = customer.Address
                 }
             ).ToList();
 
             
         }
 
-        public Model.Customers UpdateCustomers(Model.Customers customerToUpdate)
+        public Customers UpdateCustomers(Customers customersToUpdate)
         {
-            Model.Customers customersToUpdate = new Model.Customers() {
-                CustomerId = customerToUpdate.CustomerId,
-                FirstName = customerToUpdate.FirstName,
-                LastName = customerToUpdate.LastName
+            Customers custoToUpdate = new Customers() {
+
+                CustomerId = customersToUpdate.CustomerId,
+                FirstName = customersToUpdate.FirstName,
+                LastName = customersToUpdate.LastName,
+                Address = customersToUpdate.Address
                 
             };
 
-            customersToUpdate = _context.Customers.Update(customersToUpdate).Entity;
+            custoToUpdate = _context.Customers.Update(custoToUpdate).Entity;
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
 
-            return new Model.Customers() {
-                CustomerId = customerToUpdate.CustomerId,
-                FirstName = customerToUpdate.FirstName,
-                LastName = customerToUpdate.LastName
+            return new Customers() {
+                CustomerId = custoToUpdate.CustomerId,
+                FirstName = custoToUpdate.FirstName,
+                LastName = custoToUpdate.LastName,
+                Address = custoToUpdate.Address
                 
             };
         }
 
-        public List<Model.Customers> SearchCustomers(string queryStr)
+        public List<Customers> SearchCustomers(string queryStr)
         {
             return _context.Customers.Where(
                 custo => custo.FirstName.Contains(queryStr) || custo.LastName.Contains(queryStr) 
             ).Select(
-                c => new Model.Customers(){
+                c => new Customers(){
                     CustomerId = c.CustomerId,
                     FirstName = c.FirstName,
                     LastName = c.LastName,
+                    Address = c.Address
                     
                 }
             ).ToList();
         }
 
-        public Model.Orders AddOrder(Model.Orders order)
+        public Orders AddOrder(Orders order)
         {
-            Model.Orders orderToAdd = new Model.Orders(){
-                CustomerId = order.CustomerId,
-                
-
-            };
-            orderToAdd = _context.Orders.Add(orderToAdd).Entity;
+            order = _context.Add(order).Entity;
             _context.SaveChanges();
+            _context.ChangeTracker.Clear();
 
-            return new Model.Orders() {
-                OrderId = orderToAdd.OrderId,
-                CustomerId = orderToAdd.OrderId,
-                ProductId = orderToAdd.OrderId
+            return new Orders() {
+                OrderId = order.OrderId,
+                CustomerId = order.CustomerId,
+                ProductId = order.ProductId,
+                VendorId = order.VendorId,
+                Date = order.Date
             };
         }
 
         
-        public Model.Customers GetOneCustomerById(int id)
+        public Customers GetOneCustomerById(int id)
         {
             return _context.Customers
                 
@@ -116,85 +121,95 @@ namespace DL
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
         }
-        //public Models.Inventory UpdateInventory(Models.Inventory invToupdate)
-        //{
-        //    Inventory invtoUpdate = new Inventory();
-        //    ProductId = invToupdate.ProductId;
-        //    VendorId = invToupdate.VendorId;
-        //    Quantity = invToupdate.Quantity;
-            
-        //    _context.Inventories.Update(invtoAdd);
-        //    _context.SaveChanges();
-        //    _context.ChangeTracker.Clear();
-        //    return invToupdate;
-        //}
-        //public List<Model.Products> GetAllProducts()
-        //{
-            
-        //    return _context.Products.Select(
-        //        product => new Model.Products() {
-        //            ProductId = product.Id,
-        //            Name = product.Name,
-        //            Price = (decimal)product.Price,
-        //            Description = product.Description
-        //        }
-        //    ).ToList();
-        //}
 
-        //public List<Model.Products> SearchProducts(string queryStr)
-        //{
-        //    return _context.Products.Where(
-        //        prod => prod.Name.Contains(queryStr) ||  prod.Description.Contains(queryStr)
-        //    ).Select(
-        //        p => new Model.Products(){
-        //            Name = p.Name,
-        //            Price = (decimal)p.Price, 
-        //            Description = p.Description,
-        //        }
-        //    ).ToList();
-        //}
-        //public Model.VendorBranches SelectBranch(int id)
-        //{
-        //    VendorBranch vendorById = _context.VendorBranches
-        //    .Include("Inventory")
-        //    .FirstOrDefault(v => v.Id == id);
-        //    return new Model.VendorBranches()
-        //    {
-        //        VendorId = vendorById.Id,
-        //        Name = vendorById.Name,
-        //        CityState = vendorById.CityState
-        //    };
-        //}
+        public Models.Inventory UpdateInventory(Models.Inventory inventoryToupdate)
+        {
+            Inventory invToUpdate = new Inventory() {
+                InventoryId = inventoryToupdate.InventoryId,
+                ProductId = inventoryToupdate.ProductId,
+                VendorId = inventoryToupdate.VendorId,
+                Quantity = inventoryToupdate.Quantity
+            };
 
-        //    public List<Model.VendorBranches> GetAllVendorBranches()
-        //{
-            
-        //    return _context.VendorBranches.Select(
-        //        vendor => new Model.VendorBranches() {
-        //            VendorId = vendor.Id,
-        //            Name = vendor.Name,
-        //            CityState = vendor.CityState
-        //        }
-        //    ).ToList();
-        //}
-    
-        //public Model.Products GetOneProductById(int id)
-        //{
-        //    Product prodById = 
-        //        _context.Products
-                
-        //        .FirstOrDefault(prod => prod.Id == id);
-                
-
-        //    return new Model.Products() {
-        //        ProductId = prodById.Id,
-        //        Name = prodById.Name,
-        //        Price = (decimal)prodById.Price,
-        //        Description = prodById.Description,
-                        
-                    
-        //        };
-        //    }
+            _context.Inventories.Update(invToUpdate);
+            _context.SaveChanges();
+            _context.ChangeTracker.Clear();
+            return invToUpdate;
         }
+        public List<Products> GetAllProducts()
+        {
+
+            return _context.Products.Select(
+                product => new Products()
+                {
+                    ProductId = product.ProductId,
+                    Name = product.Name,
+                    Price = (decimal)product.Price,
+                    Description = product.Description
+                }
+            ).ToList();
+        }
+
+        public List<Products> SearchProducts(string queryStr)
+        {
+            return _context.Products.Where(
+                prod => prod.Name.Contains(queryStr) || prod.Description.Contains(queryStr)
+            ).Select(
+                p => new Products()
+                {
+                    ProductId = p.ProductId,
+                    Name = p.Name,
+                    Price = (decimal)p.Price,
+                    Description = p.Description,
+                }
+            ).ToList();
+        }
+        public VendorBranches SelectBranch(int id)
+        {
+            VendorBranches vendorById = _context.VendorBranches
+            .Include("Inventory")
+            .FirstOrDefault(v => v.VendorId == id);
+            return new VendorBranches()
+            {
+                VendorId = vendorById.VendorId,
+                Name = vendorById.Name,
+                CityState = vendorById.CityState
+            };
+        }
+
+        public List<VendorBranches> GetAllVendorBranches()
+        {
+
+            return _context.VendorBranches.Select(
+                vendor => new VendorBranches()
+                {
+                    VendorId = vendor.VendorId,
+                    Name = vendor.Name,
+                    CityState = vendor.CityState
+                }
+            ).ToList();
+        }
+
+        public Products GetOneProductById(int id)
+        {
+            Products prodById =
+                _context.Products
+
+                .FirstOrDefault(prod => prod.ProductId == id);
+
+
+            return new Products()
+            {
+                ProductId = prodById.ProductId,
+                Name = prodById.Name,
+                Price = (decimal)prodById.Price,
+                Description = prodById.Description,
+
+
+            };
+        }
+
+        
     }
+}
 

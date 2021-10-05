@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using P1BL;
 using Models;
+using WebUI.Models;
 
 namespace WebUI.Controllers
 {
@@ -19,7 +20,9 @@ namespace WebUI.Controllers
         // GET: CustomersController
         public ActionResult Index()
         {
-            List<Customers> allCusto = _bl.GetAllCustomers();
+            List<CustomersVM> allCusto = _bl.GetAllCustomers()
+                .Select(c => new CustomersVM(c))
+                .ToList();
             return View(allCusto);
         }
 
@@ -38,18 +41,18 @@ namespace WebUI.Controllers
         // POST: CustomersController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Customers customers)
+        public ActionResult Create(CustomersVM customer)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _bl.AddCustomers(customers);
+                    _bl.AddCustomers(customer.ToModel());
                     return RedirectToAction(nameof(Index));
                 }
                 return View();
             }
-            catch
+            catch (Exception e)
             {
                 return View();
             }
@@ -58,28 +61,34 @@ namespace WebUI.Controllers
         // GET: CustomersController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            
+            return View(new CustomersVM(_bl.GetOneCustomerById(id)));
         }
 
         // POST: CustomersController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, CustomersVM customer)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _bl.UpdateCustomers(customer.ToModel());
+                    return RedirectToAction(nameof(Index));
+                }
+                return RedirectToAction(nameof(Edit));
             }
             catch
             {
-                return View();
+                return RedirectToAction(nameof(Edit));
             }
         }
 
         // GET: CustomersController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(new CustomersVM(_bl.GetOneCustomerById(id)));
         }
 
         // POST: CustomersController/Delete/5
@@ -89,9 +98,10 @@ namespace WebUI.Controllers
         {
             try
             {
+                _bl.RemoveCustomer(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
                 return View();
             }

@@ -16,17 +16,21 @@ namespace DL
 
         Customers GetOneCustomerById(int id);
 
-        //Inventory UpdateInventory(Inventory invToUpdate);
+        void RemoveCustomer(int id);
 
-        //List<Products> GetAllProducts();
+        Inventory UpdateInventory(Inventory invToUpdate);
 
-        //List<Products> SearchProducts(string queryStr);
+        //Inventory QuantityInventory(Inventory invenotryQuantity, int input);
 
-        //Products GetOneProductById(int id);
+        List<Products> GetAllProducts();
 
-        //List<VendorBranches> GetAllVendorBranches();
-        //VendorBranches SelectBranch(int id);
+        List<Products> SearchProducts(string queryStr);
 
-        
+        Products GetOneProductById(int id);
+
+        List<VendorBranches> GetAllVendorBranches();
+        VendorBranches SelectBranch(int id);
+
+
     }
 }

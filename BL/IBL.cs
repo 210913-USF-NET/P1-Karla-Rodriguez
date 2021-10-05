@@ -18,19 +18,21 @@ namespace P1BL
 
         Customers GetOneCustomerById(int id);
 
-        //Products GetOneProductById(int id);
+        void RemoveCustomer(int id);
 
-        //Inventory UpdateInventory(Inventory invToupdate);
+        Products GetOneProductById(int id);
 
-        //List<Products> GetAllProducts();
+        Inventory UpdateInventory(Inventory invToupdate);
 
-        //List<Products> SearchProducts(string queryStr);
+        List<Products> GetAllProducts();
 
-        //List<VendorBranches> GetAllVendorBranches();
+        List<Products> SearchProducts(string queryStr);
 
-        //VendorBranches SelectBranch(int id);
+        List<VendorBranches> GetAllVendorBranches();
 
-        
-        
+        VendorBranches SelectBranch(int id);
+
+
+
     }
 }
