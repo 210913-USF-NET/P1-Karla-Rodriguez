@@ -7,8 +7,23 @@ namespace Models
 {
     public class Products
     {
-        [Key]
-        public int ProductId { get; set; }
+        public Products()
+        {
+        }
+
+        public Products(string name)
+        {
+            this.Name = name;
+        }
+
+        public Products (string name, decimal Price, string Description) : this(name)
+        {
+            this.Price = Price;
+            this.Description = Description;
+        }
+
+        
+        public int Id { get; set; }
         public string Name {get; set;}
 
         public decimal Price {get; set;}

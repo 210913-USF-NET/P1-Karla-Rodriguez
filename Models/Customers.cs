@@ -10,7 +10,7 @@ namespace Models
     {
 
         public Customers() {
-            Log.Debug("Connection to database from customer");
+            Log.Debug("Database connection");
             this.Orders = new List<Orders>();
         }
 
@@ -21,8 +21,8 @@ namespace Models
             this.Address = Address;
         }
 
-        [Key]
-        public int CustomerId { get; set; }
+        
+        public int Id { get; set; }
 
         private string _firstname;
 
@@ -88,7 +88,7 @@ namespace Models
 
         public override string ToString()
         {
-            return $"ID: {this.CustomerId}, FirstName: {this.FirstName}, LastName: {this.LastName}, Address: {this.Address}";
+            return $"ID: {this.Id}, FirstName: {this.FirstName}, LastName: {this.LastName}, Address: {this.Address}";
 
         }
         public bool Equals(Customers customer)

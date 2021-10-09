@@ -21,9 +21,4 @@
     <ProjectReference Include="..\Models\Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Dealers\" />
-    <Folder Include="Views\Products\" />
-  </ItemGroup>
-
 </Project>

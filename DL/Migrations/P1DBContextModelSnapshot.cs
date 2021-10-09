@@ -21,7 +21,7 @@ namespace DL.Migrations
 
             modelBuilder.Entity("Models.Customers", b =>
                 {
-                    b.Property<int>("CustomerId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -30,52 +30,53 @@ namespace DL.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("CustomerId");
+                    b.HasKey("Id");
 
                     b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("Models.Inventory", b =>
                 {
-                    b.Property<int>("InventoryId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int?>("NameProductId")
-                        .HasColumnType("integer");
+                    b.Property<string>("Product")
+                        .HasColumnType("text");
 
                     b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("ProductsId")
                         .HasColumnType("integer");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("VendorBranchesVendorId")
+                    b.Property<int?>("VendorBranchesId")
                         .HasColumnType("integer");
 
                     b.Property<int>("VendorId")
                         .HasColumnType("integer");
 
-                    b.HasKey("InventoryId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("NameProductId");
+                    b.HasIndex("ProductsId");
 
-                    b.HasIndex("VendorBranchesVendorId");
+                    b.HasIndex("VendorBranchesId");
 
-                    b.ToTable("Inventories");
+                    b.ToTable("Inventory");
                 });
 
             modelBuilder.Entity("Models.LineItem", b =>
                 {
-                    b.Property<int>("LineItemId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -83,7 +84,7 @@ namespace DL.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("OrdersOrderId")
+                    b.Property<int?>("OrdersId")
                         .HasColumnType("integer");
 
                     b.Property<int>("ProductId")
@@ -95,24 +96,27 @@ namespace DL.Migrations
                     b.Property<int>("VendorId")
                         .HasColumnType("integer");
 
-                    b.HasKey("LineItemId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("OrdersOrderId");
+                    b.HasIndex("OrdersId");
 
                     b.ToTable("LineItems");
                 });
 
             modelBuilder.Entity("Models.Orders", b =>
                 {
-                    b.Property<int>("OrderId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<string>("Customer")
+                        .HasColumnType("text");
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("CustomersCustomerId")
+                    b.Property<int?>("CustomersId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("Date")
@@ -121,22 +125,19 @@ namespace DL.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("Totals")
-                        .HasColumnType("numeric");
-
                     b.Property<int>("VendorId")
                         .HasColumnType("integer");
 
-                    b.HasKey("OrderId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("CustomersCustomerId");
+                    b.HasIndex("CustomersId");
 
                     b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Models.Products", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -147,22 +148,17 @@ namespace DL.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<int?>("OrdersOrderId")
-                        .HasColumnType("integer");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
-                    b.HasKey("ProductId");
-
-                    b.HasIndex("OrdersOrderId");
+                    b.HasKey("Id");
 
                     b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Models.VendorBranches", b =>
                 {
-                    b.Property<int>("VendorId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -176,43 +172,34 @@ namespace DL.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.HasKey("VendorId");
+                    b.HasKey("Id");
 
                     b.ToTable("VendorBranches");
                 });
 
             modelBuilder.Entity("Models.Inventory", b =>
                 {
-                    b.HasOne("Models.Products", "Name")
+                    b.HasOne("Models.Products", null)
                         .WithMany("Inventory")
-                        .HasForeignKey("NameProductId");
+                        .HasForeignKey("ProductsId");
 
                     b.HasOne("Models.VendorBranches", null)
                         .WithMany("Inventories")
-                        .HasForeignKey("VendorBranchesVendorId");
-
-                    b.Navigation("Name");
+                        .HasForeignKey("VendorBranchesId");
                 });
 
             modelBuilder.Entity("Models.LineItem", b =>
                 {
                     b.HasOne("Models.Orders", null)
                         .WithMany("LineItems")
-                        .HasForeignKey("OrdersOrderId");
+                        .HasForeignKey("OrdersId");
                 });
 
             modelBuilder.Entity("Models.Orders", b =>
                 {
                     b.HasOne("Models.Customers", null)
                         .WithMany("Orders")
-                        .HasForeignKey("CustomersCustomerId");
-                });
-
-            modelBuilder.Entity("Models.Products", b =>
-                {
-                    b.HasOne("Models.Orders", null)
-                        .WithMany("Products")
-                        .HasForeignKey("OrdersOrderId");
+                        .HasForeignKey("CustomersId");
                 });
 
             modelBuilder.Entity("Models.Customers", b =>
@@ -223,8 +210,6 @@ namespace DL.Migrations
             modelBuilder.Entity("Models.Orders", b =>
                 {
                     b.Navigation("LineItems");
-
-                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Models.Products", b =>

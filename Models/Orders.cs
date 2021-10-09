@@ -7,20 +7,30 @@ using System.Linq;
 namespace Models
 {
     public class Orders
-    {    
-        [Key]
-        public int OrderId {get; set;}
+    {
+        public Orders()
+        {
+        }
+
+        public Orders(int custId, int veId, int prId) 
+        {
+            this.CustomerId = custId;
+            this.VendorId = veId;
+            this.ProductId = prId;
+        }
+
+        
+        public int Id {get; set;}
 
         public int CustomerId{get; set;}
 
+        public int ProductId { get; set;}
         public int VendorId{get; set;}
 
-        public int ProductId { get; set; }
-
-        public List<Products> Products {get;set;}
+        public string Customer { get; set; }
         public List<LineItem> LineItems {get; set;}
 
-        public decimal Totals {get; set;}
+        
 
         public DateTime Date { get; set; }
 

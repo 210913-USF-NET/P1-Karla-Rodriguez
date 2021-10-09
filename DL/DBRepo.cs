@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Models;
-
+using System.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -39,7 +39,7 @@ namespace DL
                 .Include("Orders")
                 .Select(
                 customer => new Customers() {
-                    CustomerId = customer.CustomerId,
+                    Id = customer.Id,
                     FirstName = customer.FirstName,
                     LastName = customer.LastName,
                     Address = customer.Address
@@ -53,7 +53,7 @@ namespace DL
         {
             Customers custoToUpdate = new Customers() {
 
-                CustomerId = customersToUpdate.CustomerId,
+                Id = customersToUpdate.Id,
                 FirstName = customersToUpdate.FirstName,
                 LastName = customersToUpdate.LastName,
                 Address = customersToUpdate.Address
@@ -65,7 +65,7 @@ namespace DL
             _context.ChangeTracker.Clear();
 
             return new Customers() {
-                CustomerId = custoToUpdate.CustomerId,
+                Id = custoToUpdate.Id,
                 FirstName = custoToUpdate.FirstName,
                 LastName = custoToUpdate.LastName,
                 Address = custoToUpdate.Address
@@ -73,13 +73,13 @@ namespace DL
             };
         }
 
-        public List<Customers> SearchCustomers(string queryStr)
+        public List<Customers> SearchCustomers(string FirstName, string Address)
         {
             return _context.Customers.Where(
-                custo => custo.FirstName.Contains(queryStr) || custo.LastName.Contains(queryStr) 
+                custo => custo.FirstName.Contains(FirstName) && custo.Address.Contains(Address) 
             ).Select(
                 c => new Customers(){
-                    CustomerId = c.CustomerId,
+                    Id = c.Id,
                     FirstName = c.FirstName,
                     LastName = c.LastName,
                     Address = c.Address
@@ -88,6 +88,8 @@ namespace DL
             ).ToList();
         }
 
+        
+
         public Orders AddOrder(Orders order)
         {
             order = _context.Add(order).Entity;
@@ -95,7 +97,7 @@ namespace DL
             _context.ChangeTracker.Clear();
 
             return new Orders() {
-                OrderId = order.OrderId,
+                Id = order.Id,
                 CustomerId = order.CustomerId,
                 ProductId = order.ProductId,
                 VendorId = order.VendorId,
@@ -103,6 +105,8 @@ namespace DL
             };
         }
 
+
+       
         
         public Customers GetOneCustomerById(int id)
         {
@@ -110,7 +114,7 @@ namespace DL
                 
                 .AsNoTracking()
                 .Include(c => c.Orders)
-                .FirstOrDefault(c => c.CustomerId == id);
+                .FirstOrDefault(c => c.Id == id);
 
           
         }
@@ -122,27 +126,58 @@ namespace DL
             _context.ChangeTracker.Clear();
         }
 
+
+        public Inventory AddInventory(Inventory inventory)
+        {
+
+            inventory = _context.Add(inventory).Entity;
+
+
+            _context.SaveChanges();
+
+
+            _context.ChangeTracker.Clear();
+
+            return inventory;
+        }
+
+
         public Models.Inventory UpdateInventory(Models.Inventory inventoryToupdate)
         {
             Inventory invToUpdate = new Inventory() {
-                InventoryId = inventoryToupdate.InventoryId,
+                Id = inventoryToupdate.Id,
                 ProductId = inventoryToupdate.ProductId,
                 VendorId = inventoryToupdate.VendorId,
                 Quantity = inventoryToupdate.Quantity
             };
 
-            _context.Inventories.Update(invToUpdate);
+            _context.Inventory.Update(invToUpdate);
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
             return invToUpdate;
         }
+
+        public Products AddProducts(Products product)
+        {
+
+            product = _context.Add(product).Entity;
+
+
+            _context.SaveChanges();
+
+
+            _context.ChangeTracker.Clear();
+
+            return product;
+        }
+
         public List<Products> GetAllProducts()
         {
 
             return _context.Products.Select(
                 product => new Products()
                 {
-                    ProductId = product.ProductId,
+                    Id = product.Id,
                     Name = product.Name,
                     Price = (decimal)product.Price,
                     Description = product.Description
@@ -157,7 +192,7 @@ namespace DL
             ).Select(
                 p => new Products()
                 {
-                    ProductId = p.ProductId,
+                    Id = p.Id,
                     Name = p.Name,
                     Price = (decimal)p.Price,
                     Description = p.Description,
@@ -168,14 +203,32 @@ namespace DL
         {
             VendorBranches vendorById = _context.VendorBranches
             .Include("Inventory")
-            .FirstOrDefault(v => v.VendorId == id);
+            .FirstOrDefault(v => v.Id == id);
             return new VendorBranches()
             {
-                VendorId = vendorById.VendorId,
+                Id = vendorById.Id,
                 Name = vendorById.Name,
+                GrandCompany = vendorById.GrandCompany,
                 CityState = vendorById.CityState
             };
         }
+
+
+        public VendorBranches AddBranches(VendorBranches vendor)
+        {
+
+            vendor = _context.Add(vendor).Entity;
+
+
+            _context.SaveChanges();
+
+
+            _context.ChangeTracker.Clear();
+
+            return vendor;
+        }
+
+
 
         public List<VendorBranches> GetAllVendorBranches()
         {
@@ -183,8 +236,9 @@ namespace DL
             return _context.VendorBranches.Select(
                 vendor => new VendorBranches()
                 {
-                    VendorId = vendor.VendorId,
+                    Id = vendor.Id,
                     Name = vendor.Name,
+                    GrandCompany = vendor.GrandCompany,
                     CityState = vendor.CityState
                 }
             ).ToList();
@@ -195,12 +249,12 @@ namespace DL
             Products prodById =
                 _context.Products
 
-                .FirstOrDefault(prod => prod.ProductId == id);
+                .FirstOrDefault(prod => prod.Id == id);
 
 
             return new Products()
             {
-                ProductId = prodById.ProductId,
+                Id = prodById.Id,
                 Name = prodById.Name,
                 Price = (decimal)prodById.Price,
                 Description = prodById.Description,
@@ -209,7 +263,11 @@ namespace DL
             };
         }
 
-        
+
+
+     
+
+
     }
 }
 

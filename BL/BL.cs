@@ -26,13 +26,9 @@ namespace P1BL
         {
             return _repo.UpdateCustomers(custoToUpdate);
         }
-        public List<Customers> SearchCustomers(string queryStr)
+        public List<Customers> SearchCustomers(string FirstName, string Address)
         {
-            return _repo.SearchCustomers(queryStr);
-        }
-        public Orders AddOrder(Orders order)
-        {
-            return _repo.AddOrder(order);
+            return _repo.SearchCustomers(FirstName, Address);
         }
         public Customers GetOneCustomerById(int id)
         {
@@ -44,13 +40,16 @@ namespace P1BL
              _repo.RemoveCustomer(id);
         }
 
-        public Inventory UpdateInventory(Inventory invToupdate)
-        {
-            return _repo.UpdateInventory(invToupdate);
-        }
+
+
         public List<Products> GetAllProducts()
         {
             return _repo.GetAllProducts();
+        }
+
+        public Products AddProducts(Products product)
+        {
+            return _repo.AddProducts(product);
         }
 
         public Products GetOneProductById(int id)
@@ -60,6 +59,32 @@ namespace P1BL
         public List<Products> SearchProducts(string queryStr)
         {
             return _repo.SearchProducts(queryStr);
+        }
+
+
+
+        public Orders AddOrder(Orders order)
+        {
+            return _repo.AddOrder(order);
+        }
+
+
+        public Inventory AddInventory(Inventory inventory)
+        {
+            return _repo.AddInventory(inventory);
+        }
+        public Inventory UpdateInventory(Inventory invToupdate)
+        {
+            return _repo.UpdateInventory(invToupdate);
+        }
+      
+
+
+
+
+        public VendorBranches AddBranches(VendorBranches vendor)
+        {
+            return _repo.AddBranches(vendor);
         }
         public List<VendorBranches> GetAllVendorBranches()
         {

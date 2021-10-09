@@ -9,17 +9,17 @@ namespace WebUI.Models
 {
     public class CustomersVM
     {
-        public CustomersVM() { }
+        public CustomersVM(List<Customers> customers) { }
 
         public CustomersVM(Customers custo)
         {
-            this.CustomerId = custo.CustomerId;
+            this.Id = custo.Id;
             this.FirstName = custo.FirstName;
             this.LastName = custo.LastName;
             this.Address = custo.Address;
         }
 
-        public int CustomerId { get; set; }
+        public int Id { get; set; }
 
         public List<Orders> Orders { get; set; }
 
@@ -42,7 +42,7 @@ namespace WebUI.Models
             {
                 newCusto = new Customers
                 {
-                    CustomerId = this.CustomerId,
+                    Id = this.Id,
                     FirstName = this.FirstName,
                     LastName = this.LastName,
                     Address = this.Address

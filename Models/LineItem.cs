@@ -5,8 +5,18 @@ namespace Models
     public class LineItem
     {
       
-        [Key]
-        public int LineItemId { get; set; }
+        public LineItem() { }
+        public LineItem(int orId, int prId, int vId, int Quan)
+        {
+            this.OrderId = orId;
+            this.ProductId = prId;
+            this.VendorId = vId;
+            this.Quantity = Quan;
+            
+        }
+
+        
+        public int Id { get; set; }
 
         public  int OrderId { get; set; }
 

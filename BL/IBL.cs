@@ -12,21 +12,38 @@ namespace P1BL
 
         Customers UpdateCustomers(Customers customerToUpdate);
 
-        List<Customers> SearchCustomers(string queryStr);
-
-        Orders AddOrder(Orders orders);
+        List<Customers> SearchCustomers(string FirstName, string Address);
 
         Customers GetOneCustomerById(int id);
 
         void RemoveCustomer(int id);
 
+
+
+
+        Products AddProducts(Products product);
         Products GetOneProductById(int id);
-
-        Inventory UpdateInventory(Inventory invToupdate);
-
         List<Products> GetAllProducts();
 
         List<Products> SearchProducts(string queryStr);
+
+
+
+
+        Orders AddOrder(Orders orders);
+
+
+        Inventory AddInventory(Inventory inventory);
+
+        Inventory UpdateInventory(Inventory invToupdate);
+
+
+
+       
+
+
+
+        VendorBranches AddBranches(VendorBranches vendor);
 
         List<VendorBranches> GetAllVendorBranches();
 

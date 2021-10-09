@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 using P1BL;
 using Models;
 using WebUI.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebUI.Controllers
 {
     public class CustomersController : Controller
     {
+        //public static Customers currentCustomer;
+
         private IBL _bl;
             public CustomersController(IBL bl)
         {
@@ -25,6 +28,10 @@ namespace WebUI.Controllers
                 .ToList();
             return View(allCusto);
         }
+
+   
+        
+
 
         // GET: CustomersController/Details/5
         public ActionResult Details(int id)
@@ -41,13 +48,13 @@ namespace WebUI.Controllers
         // POST: CustomersController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CustomersVM customer)
+        public ActionResult Create(CustomersVM custo)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _bl.AddCustomers(customer.ToModel());
+                    _bl.AddCustomers(custo.ToModel());
                     return RedirectToAction(nameof(Index));
                 }
                 return View();
@@ -59,34 +66,55 @@ namespace WebUI.Controllers
         }
 
         // GET: CustomersController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult GetOneCustomerById(int Id)
         {
             
-            return View(new CustomersVM(_bl.GetOneCustomerById(id)));
+            return View(new CustomersVM(_bl.GetOneCustomerById(Id)));
         }
 
         // POST: CustomersController/Edit/5
+        
+        
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, CustomersVM customer)
+
+        public ActionResult Login()
         {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    _bl.UpdateCustomers(customer.ToModel());
-                    return RedirectToAction(nameof(Index));
-                }
-                return RedirectToAction(nameof(Edit));
-            }
-            catch
-            {
-                return RedirectToAction(nameof(Edit));
-            }
+            return View();
         }
 
-        // GET: CustomersController/Delete/5
-        public ActionResult Delete(int id)
+            //[HttpPost]
+            //[ValidateAntiForgeryToken]
+            //public ActionResult Login(string FirstName, string Address)
+            //{
+            //    try
+            //    {
+            //        var customer = _bl.SearchCustomers(FirstName, Address);
+            //        currentCustomer = customer[0];
+            //        if (customer.Count == 0)
+            //        {
+            //            ModelState.AddModelError(string.Empty, "Invalid Login Attempt. Please try again");
+            //            return View("Login");
+            //        }
+            //        else
+            //        {
+            //            if (FirstName == "Boss" && Address == "Gold Saucer 123")
+            //            {
+            //                return RedirectToAction("Index", "Boss");
+            //            }
+            //            return RedirectToAction("Index", "Shop", currentCustomer);
+            //        }
+            //    }
+            //    catch
+            //    {
+            //        ModelState.AddModelError(string.Empty, "Invalid Login Attempt. Please try again");
+            //        return View("Login");
+            //    }
+            //}
+
+
+
+            // GET: CustomersController/Delete/5
+            public ActionResult Delete(int id)
         {
             return View(new CustomersVM(_bl.GetOneCustomerById(id)));
         }

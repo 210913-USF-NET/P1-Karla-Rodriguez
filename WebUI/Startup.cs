@@ -1,16 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DL;
 using P1BL;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace WebUI
 {
@@ -22,6 +18,7 @@ namespace WebUI
         }
 
         public IConfiguration Configuration { get; }
+        
 
         // This method gets called by the runtime. Use this method to add services to the container.
         //*********NOTES***********
@@ -31,7 +28,13 @@ namespace WebUI
         //container that holds the resources that the app needs
         public void ConfigureServices(IServiceCollection services)
         {
+
+            
+            
             services.AddControllersWithViews();
+
+            
+
             services.AddDbContext<P1DBContext>(options =>
             options.UseNpgsql(Configuration.GetConnectionString("P1DB")));
             //secondly, you need to configure our db here, and add the db context as a dependency
@@ -60,6 +63,10 @@ namespace WebUI
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            
+
+         
 
             app.UseAuthorization();
 

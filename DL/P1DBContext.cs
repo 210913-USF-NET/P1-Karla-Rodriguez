@@ -14,7 +14,7 @@ namespace DL
         public P1DBContext(DbContextOptions<P1DBContext> options) : base(options) { }
 
         public DbSet<Customers> Customers { get; set; }
-        public DbSet<Inventory> Inventories { get; set; }
+        public DbSet<Inventory> Inventory { get; set; }
         public DbSet<LineItem> LineItems { get; set; }
         public DbSet<Orders> Orders { get; set; }
         public DbSet<Products> Products { get; set; }
