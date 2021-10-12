@@ -77,7 +77,10 @@ namespace P1BL
         {
             return _repo.UpdateInventory(invToupdate);
         }
-      
+        public List<Inventory> GetAllInventory()
+        {
+            return _repo.GetAllInventory();
+        }
 
 
 

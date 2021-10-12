@@ -13,9 +13,11 @@ namespace WebUI.Controllers
 {
     public class CustomersController : Controller
     {
-        //public static Customers currentCustomer;
+        public static Customers currentCustomer;
 
         private IBL _bl;
+
+        
             public CustomersController(IBL bl)
         {
             _bl = bl;
@@ -55,7 +57,7 @@ namespace WebUI.Controllers
                 if (ModelState.IsValid)
                 {
                     _bl.AddCustomers(custo.ToModel());
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Login));
                 }
                 return View();
             }
@@ -73,48 +75,46 @@ namespace WebUI.Controllers
         }
 
         // POST: CustomersController/Edit/5
-        
-        
-        [HttpPost]
+
 
         public ActionResult Login()
         {
             return View();
         }
 
-            //[HttpPost]
-            //[ValidateAntiForgeryToken]
-            //public ActionResult Login(string FirstName, string Address)
-            //{
-            //    try
-            //    {
-            //        var customer = _bl.SearchCustomers(FirstName, Address);
-            //        currentCustomer = customer[0];
-            //        if (customer.Count == 0)
-            //        {
-            //            ModelState.AddModelError(string.Empty, "Invalid Login Attempt. Please try again");
-            //            return View("Login");
-            //        }
-            //        else
-            //        {
-            //            if (FirstName == "Boss" && Address == "Gold Saucer 123")
-            //            {
-            //                return RedirectToAction("Index", "Boss");
-            //            }
-            //            return RedirectToAction("Index", "Shop", currentCustomer);
-            //        }
-            //    }
-            //    catch
-            //    {
-            //        ModelState.AddModelError(string.Empty, "Invalid Login Attempt. Please try again");
-            //        return View("Login");
-            //    }
-            //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(string FirstName, string Address)
+        {
+            try
+            {
+                var customer = _bl.SearchCustomers(FirstName, Address);
+                currentCustomer = customer[0];
+                if (customer.Count == 0)
+                {
+                    ModelState.AddModelError(string.Empty, "Wrongo");
+                    return View("Login");
+                }
+                else
+                {
+                    if (FirstName == "Boss" && Address == "Gold Saucer 123")
+                    {
+                        return RedirectToAction("Index", "Boss");
+                    }
+                    return RedirectToAction("Create", "Orders");
+                }
+            }
+            catch
+            {
+                ModelState.AddModelError(string.Empty, "Please try again");
+                return View("Login");
+            }
+        }
 
 
 
-            // GET: CustomersController/Delete/5
-            public ActionResult Delete(int id)
+        // GET: CustomersController/Delete/5
+        public ActionResult Delete(int id)
         {
             return View(new CustomersVM(_bl.GetOneCustomerById(id)));
         }

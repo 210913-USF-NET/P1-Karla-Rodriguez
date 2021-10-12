@@ -1,0 +1,27 @@
+﻿@model Models.Customers
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<head>
+    <link rel="stylesheet" href="~/css/boss.css" />
+</head>
+
+
+
+<body>
+
+    <div class="row">
+        <dd class="col" style="color:#f1893c; font-size:40px;">
+            <span style="color:#000000">Welcome back </span> <b>@Html.DisplayFor(model => model.FirstName)</b>
+        </dd>
+    </div>
+    <ul>
+        <li><a asp-action="ProductList">View Products</a></li>
+        <li><a asp-action="VendorList">View Vendors</a></li>
+        <li><a asp-action="InvList">View Inventory</a></li>
+    </ul>
+
+</body>

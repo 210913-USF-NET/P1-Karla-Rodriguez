@@ -1,0 +1,32 @@
+﻿@model Models.Products
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/prodmenu.css"/>
+    </head>
+<body>
+
+
+    <ul class="flex-container">
+        <li class="flex-item">fdgfdgfdgfd</li>
+        <li class="flex-item">ttessfd</li>
+        <li class="flex-item">sdfds</li>
+        <li class="flex-item">sdfdsfds</li>
+        <li class="flex-item">sfdsf</li>
+        <li class="flex-item">sfsdf</li>
+    </ul>
+
+
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+</body>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

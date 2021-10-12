@@ -1,0 +1,49 @@
+﻿@model Models.Orders
+
+<h4>Orders</h4>
+<hr />
+
+
+    
+        
+    
+
+<div class="row">
+    @*< <b>@Html.DisplayFor(model => model.CustomerId)</b>**@
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            @*<div class="form-group">
+                <label asp-for="CustomersId" class="control-label"></label>
+                <input asp-for="CustomersId" class="form-control" />
+                <span asp-validation-for="CustomersId" class="text-danger"></span>
+            </div>*@
+
+            <div class="form-group">
+                <label asp-for="VendorBranchesId" class="control-label"></label>
+                <input asp-for="VendorBranchesId" class="form-control" />
+                <span asp-validation-for="VendorBranchesId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductsId" class="control-label"></label>
+                <input asp-for="ProductsId" class="form-control" />
+                <span asp-validation-for="ProductsId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label"></label>
+                <input asp-for="Quantity" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

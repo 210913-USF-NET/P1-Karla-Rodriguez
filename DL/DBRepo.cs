@@ -92,17 +92,26 @@ namespace DL
 
         public Orders AddOrder(Orders order)
         {
-            order = _context.Add(order).Entity;
+            //foreach (LineItem item in order.LineItems)
+            //{
+            //    LineItem itemToAdd = new LineItem()
+            //    {
+            //        VendorBranchesId = item.Id,
+            //        ProductsId = item.ProductsId,
+            //        Quantity = (int)item.Quantity,
+            //        OrdersId = order.Id
+            //    };
+            //    itemToAdd = _context.Add(itemToAdd).Entity;
+            //    _context.SaveChanges();
+            //    _context.ChangeTracker.Clear();
+            //}
+
+           
+            _context.Add(order);
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
 
-            return new Orders() {
-                Id = order.Id,
-                CustomerId = order.CustomerId,
-                ProductId = order.ProductId,
-                VendorId = order.VendorId,
-                Date = order.Date
-            };
+            return order;
         }
 
 
@@ -130,15 +139,43 @@ namespace DL
         public Inventory AddInventory(Inventory inventory)
         {
 
-            inventory = _context.Add(inventory).Entity;
+            Inventory invToAdd = new Inventory()
+            {
+                VendorBranchesId = inventory.VendorBranchesId,
+                ProductsId = inventory.ProductsId,
+                Quantity = inventory.Quantity
+            };
 
-
+            invToAdd = _context.Add(invToAdd).Entity;
             _context.SaveChanges();
-
-
             _context.ChangeTracker.Clear();
 
-            return inventory;
+            return new Inventory()
+            {
+                Id = invToAdd.Id,
+                VendorBranchesId = invToAdd.VendorBranchesId,
+                ProductsId = invToAdd.ProductsId,
+                Quantity = invToAdd.Quantity
+            };
+        }
+
+
+
+
+        public List<Inventory> GetAllInventory()
+        {
+
+            return _context.Inventory.Select(
+                inventory => new Inventory()
+                {
+                    Id = inventory.Id,
+                    ProductsId = inventory.ProductsId,
+                    VendorBranchesId = inventory.VendorBranchesId,
+                    Quantity = inventory.Quantity
+                }
+            ).ToList();
+
+
         }
 
 
@@ -146,8 +183,8 @@ namespace DL
         {
             Inventory invToUpdate = new Inventory() {
                 Id = inventoryToupdate.Id,
-                ProductId = inventoryToupdate.ProductId,
-                VendorId = inventoryToupdate.VendorId,
+                ProductsId = inventoryToupdate.ProductsId,
+                VendorBranchesId = inventoryToupdate.VendorBranchesId,
                 Quantity = inventoryToupdate.Quantity
             };
 

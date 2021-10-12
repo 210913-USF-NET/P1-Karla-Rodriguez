@@ -9,7 +9,7 @@ namespace WebUI.Models
 {
     public class CustomersVM
     {
-        public CustomersVM(List<Customers> customers) { }
+        public CustomersVM() { }
 
         public CustomersVM(Customers custo)
         {

@@ -6,60 +6,66 @@ using System.Linq;
 using System.Threading.Tasks;
 using Models;
 using P1BL;
+using WebUI.Models;
 
 namespace WebUI.Controllers
 {
-    public class VendorBranchesController : Controller
+    public class OrdersController : Controller
     {
-        // GET: VendorBranchesController
+        // GET: OrdersController
+        private static Customers currentCustomer = CustomersController.currentCustomer;
 
         private IBL _bl;
-        public VendorBranchesController(IBL bl)
+
+        
+
+        public OrdersController(IBL bl)
         {
             _bl = bl;
         }
 
-        public ActionResult List()
+
+        public ActionResult Index()
         {
-            List<VendorBranches> allVendors = _bl.GetAllVendorBranches();
-            return View(allVendors);
+            return View();
         }
 
-        // GET: VendorBranchesController/Details/5
+        // GET: OrdersController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: VendorBranchesController/Create
-        public ActionResult Create()
+        // GET: OrdersController/Create
+        public ActionResult Order()
         {
             return View();
         }
 
-        // POST: VendorBranchesController/Create
+
+        // POST: ProductController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(VendorBranches vendor)
+        public ActionResult Order(Orders order)
         {
             try
             {
-                _bl.AddBranches(vendor);
-                return RedirectToAction(nameof(List));
+                _bl.AddOrder(order);
+                return RedirectToAction("Index", "Home");
             }
-            catch
+            catch(Exception e)
             {
                 return View();
             }
         }
 
-        // GET: VendorBranchesController/Edit/5
+        // GET: OrdersController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: VendorBranchesController/Edit/5
+        // POST: OrdersController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -74,13 +80,13 @@ namespace WebUI.Controllers
             }
         }
 
-        // GET: VendorBranchesController/Delete/5
+        // GET: OrdersController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: VendorBranchesController/Delete/5
+        // POST: OrdersController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

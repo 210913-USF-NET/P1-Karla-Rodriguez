@@ -23,7 +23,7 @@ namespace DL
         Inventory UpdateInventory(Inventory invToUpdate);
 
         //Inventory QuantityInventory(Inventory invenotryQuantity, int input);
-
+        List<Inventory> GetAllInventory();
 
 
 

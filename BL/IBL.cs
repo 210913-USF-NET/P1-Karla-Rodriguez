@@ -37,9 +37,9 @@ namespace P1BL
 
         Inventory UpdateInventory(Inventory invToupdate);
 
+        List<Inventory> GetAllInventory();
 
 
-       
 
 
 

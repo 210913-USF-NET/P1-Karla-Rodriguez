@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DL.Migrations
 {
     [DbContext(typeof(P1DBContext))]
-    [Migration("20211009185115_initial")]
+    [Migration("20211012022501_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,22 +49,16 @@ namespace DL.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Product")
+                    b.Property<string>("Products")
                         .HasColumnType("text");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("ProductsId")
+                    b.Property<int>("ProductsId")
                         .HasColumnType("integer");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("VendorBranchesId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("VendorId")
+                    b.Property<int>("VendorBranchesId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -83,19 +77,16 @@ namespace DL.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("OrderId")
+                    b.Property<int>("OrdersId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("OrdersId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ProductId")
+                    b.Property<int>("ProductsId")
                         .HasColumnType("integer");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
-                    b.Property<int>("VendorId")
+                    b.Property<int>("VendorBranchesId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -112,22 +103,19 @@ namespace DL.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Customer")
-                        .HasColumnType("text");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("CustomersId")
+                    b.Property<int>("CustomersId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int>("ProductsId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("VendorId")
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("VendorBranchesId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -183,25 +171,33 @@ namespace DL.Migrations
                 {
                     b.HasOne("Models.Products", null)
                         .WithMany("Inventory")
-                        .HasForeignKey("ProductsId");
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Models.VendorBranches", null)
                         .WithMany("Inventories")
-                        .HasForeignKey("VendorBranchesId");
+                        .HasForeignKey("VendorBranchesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Models.LineItem", b =>
                 {
                     b.HasOne("Models.Orders", null)
                         .WithMany("LineItems")
-                        .HasForeignKey("OrdersId");
+                        .HasForeignKey("OrdersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Models.Orders", b =>
                 {
                     b.HasOne("Models.Customers", null)
                         .WithMany("Orders")
-                        .HasForeignKey("CustomersId");
+                        .HasForeignKey("CustomersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Models.Customers", b =>

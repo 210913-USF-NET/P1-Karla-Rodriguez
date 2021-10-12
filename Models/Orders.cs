@@ -12,23 +12,25 @@ namespace Models
         {
         }
 
-        public Orders(int custId, int veId, int prId) 
+        public Orders(int custId, int veId) 
         {
-            this.CustomerId = custId;
-            this.VendorId = veId;
-            this.ProductId = prId;
+            this.CustomersId = custId;
+            this.VendorBranchesId = veId;
+            this.Date = DateTime.Today;
+            
         }
 
         
         public int Id {get; set;}
 
-        public int CustomerId{get; set;}
+        public int CustomersId{get; set;}
+        public int VendorBranchesId{get; set;}
 
-        public int ProductId { get; set;}
-        public int VendorId{get; set;}
+        public int ProductsId { get; set; }
+        
+        public int Quantity { get; set; }
 
-        public string Customer { get; set; }
-        public List<LineItem> LineItems {get; set;}
+      public List<LineItem> LineItems { get; set; }
 
         
 

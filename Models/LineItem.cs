@@ -8,9 +8,9 @@ namespace Models
         public LineItem() { }
         public LineItem(int orId, int prId, int vId, int Quan)
         {
-            this.OrderId = orId;
-            this.ProductId = prId;
-            this.VendorId = vId;
+            this.OrdersId = orId;
+            this.ProductsId = prId;
+            this.VendorBranchesId = vId;
             this.Quantity = Quan;
             
         }
@@ -18,11 +18,11 @@ namespace Models
         
         public int Id { get; set; }
 
-        public  int OrderId { get; set; }
+        public  int OrdersId { get; set; }
 
-        public int ProductId { get; set; }
+        public int ProductsId { get; set; }
 
-        public int VendorId { get; set; }
+        public int VendorBranchesId { get; set; }
 
         public int Quantity { get; set; }
 

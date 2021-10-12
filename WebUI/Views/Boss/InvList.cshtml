@@ -1,7 +1,7 @@
-﻿@model IEnumerable<Models.VendorBranches>
+﻿@model IEnumerable<Models.Inventory>
 
 @{
-    ViewData["Title"] = "List";
+    ViewData["Title"] = "InvList";
 }
 
 <h1>List</h1>
@@ -16,13 +16,13 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.ProductsId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GrandCompany)
+                @Html.DisplayNameFor(model => model.VendorBranchesId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CityState)
+                @Html.DisplayNameFor(model => model.Quantity)
             </th>
             <th></th>
         </tr>
@@ -34,13 +34,13 @@
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.ProductsId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GrandCompany)
+                @Html.DisplayFor(modelItem => item.VendorBranchesId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CityState)
+                @Html.DisplayFor(modelItem => item.Quantity)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

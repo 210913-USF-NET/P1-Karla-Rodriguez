@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Models.Products>
 
 @{
-    ViewData["Title"] = "List";
+    ViewData["Title"] = "ProductList";
 }
 
 <h1>List</h1>
 
 <p>
-    <a asp-action="Login">Login</a>
+    <a asp-action="ProductCreate">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -44,7 +44,7 @@
             </td>
             <td>
                
-                @Html.ActionLink("Purchase", "CreateOrder", new { id = item.Id }) 
+                @Html.ActionLink("Delete", "CreateOrder", "Product", new { id = item.Id }) 
                 
             </td>
         </tr>
