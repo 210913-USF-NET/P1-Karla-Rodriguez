@@ -6,14 +6,14 @@ namespace Models
 {
     public class VendorBranches
     {
-        
-        public int Id {get; set;}
-        public string Name {get; set;}
+
+        public int Id { get; set; }
+        public string Name { get; set; }
 
         public string GrandCompany { get; set; }
-        public string CityState {get; set;} 
+        public string CityState { get; set; }
 
-        
+
 
         public override string ToString()
         {

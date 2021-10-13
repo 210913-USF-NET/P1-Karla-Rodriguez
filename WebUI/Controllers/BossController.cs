@@ -9,132 +9,135 @@ using P1BL;
 
 namespace WebUI.Controllers
 {
-    public class BossController : Controller
+    namespace WebUI.Controllers
     {
-        // GET: BossController
-
-        private static Customers currentCustomer = CustomersController.currentCustomer;
-
-        private IBL _bl;
-
-
-        public BossController(IBL bl)
+        public class BossController : Controller
         {
-            _bl = bl;
-        }
+            // GET: BossController
 
-        public ActionResult Index()
-        {
-            return View();
-        }
+            private static Customers currentCustomer = CustomersController.currentCustomer;
 
-        // GET: BossController/Details/5
-       
-
-        
-        public ActionResult InvList()
-        {
-            List<Inventory> allInv = _bl.GetAllInventory();
-            return View(allInv);
-        }
+            private IBL _bl;
 
 
-        public ActionResult InvCreate()
-        {
-            return View();
-        }
-
-        // POST: InventoryController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult InvCreate(Inventory inventory)
-        {
-            try
+            public BossController(IBL bl)
             {
-                _bl.AddInventory(inventory);
-                return RedirectToAction(nameof(InvList));
+                _bl = bl;
             }
-            catch(Exception e)
+
+            public ActionResult Index()
             {
                 return View();
             }
-        }
+
+            // GET: BossController/Details/5
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Inventory inventory)
-        {
-            try
+
+            public ActionResult InvList()
             {
-                _bl.UpdateInventory(inventory);
-                return RedirectToAction(nameof(InvList));
+                List<Inventory> allInv = _bl.GetAllInventory();
+                return View(allInv);
             }
-            catch
+
+
+            public ActionResult InvCreate()
             {
                 return View();
             }
-        }
 
-        public ActionResult VendorList()
-        {
-            List<VendorBranches> allVendors = _bl.GetAllVendorBranches();
-            return View(allVendors);
-        }
-
-
-        public ActionResult VendorCreate()
-        {
-            return View();
-        }
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult VendorCreate(VendorBranches vendor)
-        {
-            try
+            // POST: InventoryController/Create
+            [HttpPost]
+            [ValidateAntiForgeryToken]
+            public ActionResult InvCreate(Inventory inventory)
             {
-                _bl.AddBranches(vendor);
-                return RedirectToAction(nameof(VendorList));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-
-        public ActionResult ProductList()
-        {
-            List<Products> allProducts = _bl.GetAllProducts();
-            return View(allProducts);
-        }
-
-
-        public ActionResult ProductCreate()
-        {
-            return View();
-        }
-
-        // POST: ProductController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult ProductCreate(Products product)
-        {
-            try
-            {
-
+                try
                 {
-                    _bl.AddProducts(product);
-                    return RedirectToAction(nameof(ProductList));
+                    _bl.AddInventory(inventory);
+                    return RedirectToAction(nameof(InvList));
+                }
+                catch (Exception e)
+                {
+                    return View();
+                }
+            }
+
+
+            [HttpPost]
+            [ValidateAntiForgeryToken]
+            public ActionResult Edit(int id, Inventory inventory)
+            {
+                try
+                {
+                    _bl.UpdateInventory(inventory);
+                    return RedirectToAction(nameof(InvList));
+                }
+                catch
+                {
+                    return View();
+                }
+            }
+
+            public ActionResult VendorList()
+            {
+                List<VendorBranches> allVendors = _bl.GetAllVendorBranches();
+                return View(allVendors);
+            }
+
+
+            public ActionResult VendorCreate()
+            {
+                return View();
+            }
+
+
+            [HttpPost]
+            [ValidateAntiForgeryToken]
+            public ActionResult VendorCreate(VendorBranches vendor)
+            {
+                try
+                {
+                    _bl.AddBranches(vendor);
+                    return RedirectToAction(nameof(VendorList));
+                }
+                catch
+                {
+                    return View();
+                }
+            }
+
+
+            public ActionResult ProductList()
+            {
+                List<Products> allProducts = _bl.GetAllProducts();
+                return View(allProducts);
+            }
+
+
+            public ActionResult ProductCreate()
+            {
+                return View();
+            }
+
+            // POST: ProductController/Create
+            [HttpPost]
+            [ValidateAntiForgeryToken]
+            public ActionResult ProductCreate(Products product)
+            {
+                try
+                {
+
+                    {
+                        _bl.AddProducts(product);
+                        return RedirectToAction(nameof(ProductList));
+                    }
+
                 }
 
-            }
-
-            catch
-            {
-                return View();
+                catch
+                {
+                    return View();
+                }
             }
         }
     }

@@ -116,6 +116,17 @@ ol, li {
     counter-increment: item;
 }
 
+.item {
+    background-size: cover;
+    background-position: 50% 50%;
+    width: 100%;
+    height: 100%;
+}
+
+    .item img {
+        visibility: hidden;
+    }
+
     .carousel__slide:nth-child(even) {
         background-color: #99f;
     }

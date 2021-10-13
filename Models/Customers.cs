@@ -9,7 +9,8 @@ namespace Models
     public class Customers
     {
 
-        public Customers() {
+        public Customers()
+        {
             Log.Debug("Database connection");
             this.Orders = new List<Orders>();
         }
@@ -21,12 +22,12 @@ namespace Models
             this.Address = Address;
         }
 
-        
+
         public int Id { get; set; }
 
         private string _firstname;
 
-        
+
         public string FirstName
         {
             get
@@ -35,7 +36,7 @@ namespace Models
             }
             set
             {
-                
+
                 Regex pattern = new Regex("^[a-zA-Z0-9 !?']+$");
 
                 if (value?.Length == 0)
@@ -66,13 +67,13 @@ namespace Models
             set
             {
                 Regex pattern = new Regex("^[a-zA-Z0-9 !?']+$");
-                if(value?.Length == 0)
+                if (value?.Length == 0)
                 {
                     InputInvalidException e = new InputInvalidException("Racer name can't be empty");
                     Log.Warning(e.Message);
                     throw e;
                 }
-                else if(!pattern.IsMatch(value))
+                else if (!pattern.IsMatch(value))
                 {
                     throw new InputInvalidException("Racer name can only have alphanumeric characters, !, and ?.");
                 }
@@ -84,7 +85,7 @@ namespace Models
         }
         public string Address { get; set; }
 
-        public List<Orders> Orders {get; set;}
+        public List<Orders> Orders { get; set; }
 
         public override string ToString()
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Models;
-using System.Data.SqlClient;
+
 using Microsoft.EntityFrameworkCore;
 
 
@@ -17,16 +17,16 @@ namespace DL
         {
             _context = context;
         }
-        
+
         public Customers AddCustomers(Customers custo)
         {
-         
+
             custo = _context.Add(custo).Entity;
 
-            
+
             _context.SaveChanges();
 
-            
+
             _context.ChangeTracker.Clear();
 
             return custo;
@@ -34,11 +34,12 @@ namespace DL
 
         public List<Customers> GetAllCustomers()
         {
-            
+
             return _context.Customers
                 .Include("Orders")
                 .Select(
-                customer => new Customers() {
+                customer => new Customers()
+                {
                     Id = customer.Id,
                     FirstName = customer.FirstName,
                     LastName = customer.LastName,
@@ -46,49 +47,52 @@ namespace DL
                 }
             ).ToList();
 
-            
+
         }
 
         public Customers UpdateCustomers(Customers customersToUpdate)
         {
-            Customers custoToUpdate = new Customers() {
+            Customers custoToUpdate = new Customers()
+            {
 
                 Id = customersToUpdate.Id,
                 FirstName = customersToUpdate.FirstName,
                 LastName = customersToUpdate.LastName,
                 Address = customersToUpdate.Address
-                
+
             };
 
             custoToUpdate = _context.Customers.Update(custoToUpdate).Entity;
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
 
-            return new Customers() {
+            return new Customers()
+            {
                 Id = custoToUpdate.Id,
                 FirstName = custoToUpdate.FirstName,
                 LastName = custoToUpdate.LastName,
                 Address = custoToUpdate.Address
-                
+
             };
         }
 
         public List<Customers> SearchCustomers(string FirstName, string Address)
         {
             return _context.Customers.Where(
-                custo => custo.FirstName.Contains(FirstName) && custo.Address.Contains(Address) 
+                custo => custo.FirstName.Contains(FirstName) && custo.Address.Contains(Address)
             ).Select(
-                c => new Customers(){
+                c => new Customers()
+                {
                     Id = c.Id,
                     FirstName = c.FirstName,
                     LastName = c.LastName,
                     Address = c.Address
-                    
+
                 }
             ).ToList();
         }
 
-        
+
 
         public Orders AddOrder(Orders order)
         {
@@ -105,7 +109,7 @@ namespace DL
                     Quantity = item.Quantity,
                     OrdersId = order.Id
                 };
-                
+
                 itemToAdd = _context.Add(itemToAdd).Entity;
                 _context.SaveChanges();
                 _context.ChangeTracker.Clear();
@@ -115,17 +119,17 @@ namespace DL
         }
 
 
-       
-        
+
+
         public Customers GetOneCustomerById(int id)
         {
             return _context.Customers
-                
+
                 .AsNoTracking()
                 .Include(c => c.Orders)
                 .FirstOrDefault(c => c.Id == id);
 
-          
+
         }
 
         public void RemoveCustomer(int id)
@@ -163,12 +167,13 @@ namespace DL
 
 
 
-   
+
 
 
         public Models.Inventory UpdateInventory(Models.Inventory inventoryToupdate)
         {
-            Inventory invToUpdate = new Inventory() {
+            Inventory invToUpdate = new Inventory()
+            {
                 Id = inventoryToupdate.Id,
                 ProductsId = inventoryToupdate.ProductsId,
                 VendorBranchesId = inventoryToupdate.VendorBranchesId,
@@ -289,9 +294,8 @@ namespace DL
 
 
 
-     
+
 
 
     }
 }
-

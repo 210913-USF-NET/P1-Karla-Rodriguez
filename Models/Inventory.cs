@@ -6,10 +6,10 @@ namespace Models
 {
 public class Inventory
 {
-    
+
         public Inventory() { }
 
-        public Inventory (int prId, int vId, int Quan)
+        public Inventory(int prId, int vId, int Quan)
         {
             this.ProductsId = prId;
             this.VendorBranchesId = vId;
@@ -18,19 +18,19 @@ public class Inventory
 
 
 
-    
-    public int Id { get; set; }
-    public int ProductsId {get; set;} 
 
-    
+        public int Id { get; set; }
+        public int ProductsId { get; set; }
 
-    public int VendorBranchesId {get; set;}
-    public int Quantity {get; set;}
 
-    public override string ToString()
-    {
-    return $"Product: {this.ProductsId} , \nVendor Id: {this.VendorBranchesId} \n Quantity: {this.Quantity}"; 
-        
+
+        public int VendorBranchesId { get; set; }
+        public int Quantity { get; set; }
+
+        public override string ToString()
+        {
+            return $"Product: {this.ProductsId} , \nVendor Id: {this.VendorBranchesId} \n Quantity: {this.Quantity}";
+
+        }
     }
-}
 }

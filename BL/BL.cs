@@ -3,22 +3,22 @@ using Models;
 using DL;
 using System;
 
-namespace P1BL 
+namespace P1BL
 {
     public class BL : IBL
     {
-        
-            private IRepo _repo;
-            //you are using dependency injection here
-            public BL(IRepo repo)
-            {
-                _repo = repo;
-            }
+
+        private IRepo _repo;
+        //you are using dependency injection here
+        public BL(IRepo repo)
+        {
+            _repo = repo;
+        }
         public List<Customers> GetAllCustomers()
         {
             return _repo.GetAllCustomers();
         }
-        public Customers AddCustomers (Customers custo)
+        public Customers AddCustomers(Customers custo)
         {
             return _repo.AddCustomers(custo);
         }
@@ -37,7 +37,7 @@ namespace P1BL
 
         public void RemoveCustomer(int id)
         {
-             _repo.RemoveCustomer(id);
+            _repo.RemoveCustomer(id);
         }
 
 

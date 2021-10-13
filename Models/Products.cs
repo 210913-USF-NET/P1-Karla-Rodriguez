@@ -16,22 +16,22 @@ namespace Models
             this.Name = name;
         }
 
-        public Products (string name, decimal Price, string Description) : this(name)
+        public Products(string name, decimal Price, string Description) : this(name)
         {
             this.Price = Price;
             this.Description = Description;
         }
 
-        
+
         public int Id { get; set; }
-        public string Name {get; set;}
+        public string Name { get; set; }
 
-        public decimal Price {get; set;}
-        public string Description {get; set;}
+        public decimal Price { get; set; }
+        public string Description { get; set; }
 
-        
 
-        public int InventoryId {get; set;}
+
+        public int InventoryId { get; set; }
 
         public override string ToString()
         {
@@ -41,6 +41,6 @@ namespace Models
 
             return $"\nName: {this.Name},\n Price: {this.Price},\n Description: {this.Description}";
         }
-        
+
     }
 }
