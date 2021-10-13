@@ -96,26 +96,15 @@ namespace DL
 
         public Orders AddOrder(Orders order)
         {
+            
+            order.DateandTime = DateTime.Now;
             _context.Add(order);
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
 
-            foreach (LineItem item in order.LineItems)
-            {
-                LineItem itemToAdd = new LineItem()
-                {
-                    VendorBranchesId = item.Id,
-                    ProductsId = item.ProductsId,
-                    Quantity = item.Quantity,
-                    OrdersId = order.Id
-                };
-
-                itemToAdd = _context.Add(itemToAdd).Entity;
-                _context.SaveChanges();
-                _context.ChangeTracker.Clear();
-            }
-
             return order;
+
+            
         }
 
 
