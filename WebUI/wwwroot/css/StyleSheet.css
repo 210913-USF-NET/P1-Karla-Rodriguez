@@ -1,6 +1,8 @@
 ﻿/*myStyle.css*/
 
-
+.body {
+    background-image: url("https://wallpaperaccess.com/full/3487176.jpg");
+}
 
 #slideshow {
     margin: 50px auto;
