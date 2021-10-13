@@ -30,7 +30,7 @@ namespace Models
         
         public int Quantity { get; set; }
 
-      public List<LineItem> LineItems { get; set; }
+      public List<Inventory> Inventory { get; set; }
 
         
 

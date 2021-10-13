@@ -37,7 +37,7 @@ namespace WebUI.Controllers
         }
 
         // GET: OrdersController/Create
-        public ActionResult Order()
+        public ActionResult Create()
         {
             return View();
         }
@@ -46,12 +46,48 @@ namespace WebUI.Controllers
         // POST: ProductController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Order(Orders order)
+        public ActionResult Create(Orders order)
         {
             try
             {
+
+                int CustomerQuantity = order.Quantity;
+                int ProductsId = order.ProductsId;
+                int VendorId = order.VendorBranchesId;
+
                 _bl.AddOrder(order);
+                //Inventory inv = _bl.GetOneInventoryById(VendorId);
+                //Customers cust = _bl.GetOneCustomerById(1);
+                
+
+                //cust.FirstName = "Test";
+                _bl.subtractFromStock(3, 1, 2, CustomerQuantity);
+
+                //foreach (Inventory Inv in currentInv)
+                //{
+                //    if(Inv.ProductsId == ProductsId && Inv.VendorBranchesId == VendorId)
+                //    {
+                //        Inv.Quantity -= CustomerQuantity;
+
+                //_bl.Save();
+
+                //    }
+
+                //}
+
+
+                //List<VendorBranches> allVendors = _bl.GetAllVendorBranches();
+                //List<Inventory> allInv = allVendors[VendorId].Inventory;
+
+                //int currentQuantity = allInv[ProductsId].Quantity;
+
+                //int newQuantity = currentQuantity - CustomerQuantity;
+                //allVendors[VendorId].Inventory[ProductsId].Quantity = newQuantity;
+
+                //call function here for inventory
+
                 return RedirectToAction("Index", "Home");
+
             }
             catch(Exception e)
             {
@@ -72,6 +108,7 @@ namespace WebUI.Controllers
         {
             try
             {
+                
                 return RedirectToAction(nameof(Index));
             }
             catch

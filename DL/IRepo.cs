@@ -15,17 +15,21 @@ namespace DL
 
         void RemoveCustomer(int id);
 
-
+     
 
         Orders AddOrder(Orders order);
 
         Inventory AddInventory(Inventory inventory);
-        Inventory UpdateInventory(Inventory invToUpdate);
+
+        void custTest(int id);
+        Inventory UpdateInventory(Inventory quantityToUpdate);
 
         //Inventory QuantityInventory(Inventory invenotryQuantity, int input);
         List<Inventory> GetAllInventory();
 
+        Inventory GetOneInventoryById(int id);
 
+        void subtractFromStock(int id, int productsID, int VendorBranchesId, int quantity);
 
         Products AddProducts(Products product);
         List<Products> GetAllProducts();
@@ -35,7 +39,7 @@ namespace DL
         Products GetOneProductById(int id);
 
 
-
+        void Save();
 
 
         VendorBranches AddBranches(VendorBranches vendor);

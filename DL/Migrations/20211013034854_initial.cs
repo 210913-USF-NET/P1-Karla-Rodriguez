@@ -8,14 +8,15 @@ namespace DL.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-
-            migrationBuilder.DropTable("LineItems");
+           
+           
             migrationBuilder.DropTable("Inventory");
-            migrationBuilder.DropTable("Orders");
+            migrationBuilder.DropTable("LineItems");
+            
             migrationBuilder.DropTable("Products");
             migrationBuilder.DropTable("VendorBranches");
+            migrationBuilder.DropTable("Orders");
             migrationBuilder.DropTable("Customers");
-
 
             migrationBuilder.CreateTable(
                 name: "Customers",
@@ -92,7 +93,6 @@ namespace DL.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ProductsId = table.Column<int>(type: "integer", nullable: false),
-                    Products = table.Column<string>(type: "text", nullable: true),
                     VendorBranchesId = table.Column<int>(type: "integer", nullable: false),
                     Quantity = table.Column<int>(type: "integer", nullable: false)
                 },
@@ -114,21 +114,23 @@ namespace DL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LineItems",
+                name: "InventoryOrders",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    OrdersId = table.Column<int>(type: "integer", nullable: false),
-                    ProductsId = table.Column<int>(type: "integer", nullable: false),
-                    VendorBranchesId = table.Column<int>(type: "integer", nullable: false),
-                    Quantity = table.Column<int>(type: "integer", nullable: false)
+                    InventoryId = table.Column<int>(type: "integer", nullable: false),
+                    OrdersId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LineItems", x => x.Id);
+                    table.PrimaryKey("PK_InventoryOrders", x => new { x.InventoryId, x.OrdersId });
                     table.ForeignKey(
-                        name: "FK_LineItems_Orders_OrdersId",
+                        name: "FK_InventoryOrders_Inventory_InventoryId",
+                        column: x => x.InventoryId,
+                        principalTable: "Inventory",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_InventoryOrders_Orders_OrdersId",
                         column: x => x.OrdersId,
                         principalTable: "Orders",
                         principalColumn: "Id",
@@ -146,8 +148,8 @@ namespace DL.Migrations
                 column: "VendorBranchesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LineItems_OrdersId",
-                table: "LineItems",
+                name: "IX_InventoryOrders_OrdersId",
+                table: "InventoryOrders",
                 column: "OrdersId");
 
             migrationBuilder.CreateIndex(
@@ -159,19 +161,19 @@ namespace DL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "InventoryOrders");
+
+            migrationBuilder.DropTable(
                 name: "Inventory");
 
             migrationBuilder.DropTable(
-                name: "LineItems");
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
                 name: "VendorBranches");
-
-            migrationBuilder.DropTable(
-                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Customers");

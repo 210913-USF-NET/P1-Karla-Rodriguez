@@ -2955,8 +2955,11 @@
     // take popper margin in account because we don't have this info available
     var css = getStyleComputedProperty(data.instance.popper);
     var popperMarginSide = parseFloat(css['margin' + sideCapitalized], 10);
-    var popperBorderSide = parseFloat(css['border' + sideCapitalized + 'Width'], 10);
-    var sideValue = center - data.offsets.popper[side] - popperMarginSide - popperBorderSide;
+      var popperB
+
+      e = parseFloat(css['border' + sideCapitalized + 'Width'], 10);
+      var sideValue = center - data.offsets.popper[side] - popperMarginSide - popperB
+      e;
 
     // prevent arrowElement from being placed not contiguously to its popper
     sideValue = Math.max(Math.min(popper[len] - arrowElementSize, sideValue), 0);

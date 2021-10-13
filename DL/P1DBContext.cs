@@ -15,7 +15,7 @@ namespace DL
 
         public DbSet<Customers> Customers { get; set; }
         public DbSet<Inventory> Inventory { get; set; }
-        public DbSet<LineItem> LineItems { get; set; }
+        //public DbSet<LineItem> LineItems { get; set; }
         public DbSet<Orders> Orders { get; set; }
         public DbSet<Products> Products { get; set; }
         public DbSet<VendorBranches> VendorBranches { get; set; }

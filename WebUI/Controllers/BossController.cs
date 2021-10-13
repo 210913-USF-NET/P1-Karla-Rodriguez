@@ -35,6 +35,7 @@ namespace WebUI.Controllers
         public ActionResult InvList()
         {
             List<Inventory> allInv = _bl.GetAllInventory();
+            
             return View(allInv);
         }
 
@@ -60,14 +61,57 @@ namespace WebUI.Controllers
             }
         }
 
+
+        //public ActionResult Replenish(int id)
+        //{
+        //    return View(new Inventory(_bl.custTest(id)));
+        //}
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Replenish(int id, Inventory quantity)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _bl.UpdateInventory(quantity);
+                    return RedirectToAction(nameof(Index));
+                }
+                return RedirectToAction(nameof(Replenish));
+            }
+            catch
+            {
+                return RedirectToAction(nameof(Replenish));
+            }
+        }
+
+
+
+
         public ActionResult VendorList()
         {
             List<VendorBranches> allVendors = _bl.GetAllVendorBranches();
             return View(allVendors);
+
         }
 
+        //public void SubtractQuantityFromInventory(Orders order)
+        //{
+        //    int CustomerQuantity = order.Quantity;
+        //    int ProductsId = order.ProductsId;
+        //    int VendorId = order.VendorBranchesId;
+        //    List<VendorBranches> allVendors = _bl.GetAllVendorBranches();
+        //    int currentQuantity = allVendors[VendorId].Inventory[ProductsId].Quantity;
 
-        public ActionResult Create()
+        //    int newQuantity = currentQuantity - CustomerQuantity;
+        //    allVendors[VendorId].Inventory[ProductsId].Quantity = newQuantity;
+
+        //    return;
+        //}
+
+        public ActionResult VendorCreate()
         {
             return View();
         }

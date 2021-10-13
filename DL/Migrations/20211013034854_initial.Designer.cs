@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DL.Migrations
 {
     [DbContext(typeof(P1DBContext))]
-    [Migration("20211012022501_initial")]
+    [Migration("20211013034854_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,21 @@ namespace DL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+            modelBuilder.Entity("InventoryOrders", b =>
+                {
+                    b.Property<int>("InventoryId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("OrdersId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("InventoryId", "OrdersId");
+
+                    b.HasIndex("OrdersId");
+
+                    b.ToTable("InventoryOrders");
+                });
 
             modelBuilder.Entity("Models.Customers", b =>
                 {
@@ -49,9 +64,6 @@ namespace DL.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Products")
-                        .HasColumnType("text");
-
                     b.Property<int>("ProductsId")
                         .HasColumnType("integer");
 
@@ -68,32 +80,6 @@ namespace DL.Migrations
                     b.HasIndex("VendorBranchesId");
 
                     b.ToTable("Inventory");
-                });
-
-            modelBuilder.Entity("Models.LineItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("OrdersId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("VendorBranchesId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrdersId");
-
-                    b.ToTable("LineItems");
                 });
 
             modelBuilder.Entity("Models.Orders", b =>
@@ -167,6 +153,21 @@ namespace DL.Migrations
                     b.ToTable("VendorBranches");
                 });
 
+            modelBuilder.Entity("InventoryOrders", b =>
+                {
+                    b.HasOne("Models.Inventory", null)
+                        .WithMany()
+                        .HasForeignKey("InventoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.Orders", null)
+                        .WithMany()
+                        .HasForeignKey("OrdersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Models.Inventory", b =>
                 {
                     b.HasOne("Models.Products", null)
@@ -176,17 +177,8 @@ namespace DL.Migrations
                         .IsRequired();
 
                     b.HasOne("Models.VendorBranches", null)
-                        .WithMany("Inventories")
+                        .WithMany("Inventory")
                         .HasForeignKey("VendorBranchesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Models.LineItem", b =>
-                {
-                    b.HasOne("Models.Orders", null)
-                        .WithMany("LineItems")
-                        .HasForeignKey("OrdersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -205,11 +197,6 @@ namespace DL.Migrations
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("Models.Orders", b =>
-                {
-                    b.Navigation("LineItems");
-                });
-
             modelBuilder.Entity("Models.Products", b =>
                 {
                     b.Navigation("Inventory");
@@ -217,7 +204,7 @@ namespace DL.Migrations
 
             modelBuilder.Entity("Models.VendorBranches", b =>
                 {
-                    b.Navigation("Inventories");
+                    b.Navigation("Inventory");
                 });
 #pragma warning restore 612, 618
         }

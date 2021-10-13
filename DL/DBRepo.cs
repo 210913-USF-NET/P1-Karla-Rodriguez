@@ -143,7 +143,8 @@ namespace DL
             {
                 VendorBranchesId = inventory.VendorBranchesId,
                 ProductsId = inventory.ProductsId,
-                Quantity = inventory.Quantity
+                Quantity = inventory.Quantity,
+                Orders = inventory.Orders
             };
 
             invToAdd = _context.Add(invToAdd).Entity;
@@ -155,12 +156,51 @@ namespace DL
                 Id = invToAdd.Id,
                 VendorBranchesId = invToAdd.VendorBranchesId,
                 ProductsId = invToAdd.ProductsId,
-                Quantity = invToAdd.Quantity
+                Quantity = invToAdd.Quantity,
+                Orders = inventory.Orders
             };
         }
 
 
+        public void custTest(int id)
+        {
+            Customers tmp =
+            new Customers()
+            {
+                Id = id,
+                FirstName = "test",
+                LastName = "test",
+                Address = "test",
+            };
 
+            _context.Customers.Update(GetOneCustomerById(id)).CurrentValues.SetValues(tmp);
+            _context.SaveChanges();
+            _context.ChangeTracker.Clear();
+        }
+
+        public Inventory GetOneInventoryById(int id)
+        {
+            return _context.Inventory
+
+                .AsNoTracking()
+                .Include(inv => inv.Orders)
+                .FirstOrDefault(inv => inv.Id == id);
+        }
+
+        public void subtractFromStock(int id, int productsID, int VendorBranchesId, int quantity)
+        {
+            Inventory newInv = new Inventory()
+            {
+                Id = id,
+                ProductsId = productsID,
+                VendorBranchesId = VendorBranchesId,
+                Quantity = quantity,
+            };
+
+            _context.Inventory.Update(GetOneInventoryById(id)).CurrentValues.SetValues(newInv);
+            _context.SaveChanges();
+            _context.ChangeTracker.Clear();
+        }
 
         public List<Inventory> GetAllInventory()
         {
@@ -179,19 +219,28 @@ namespace DL
         }
 
 
-        public Models.Inventory UpdateInventory(Models.Inventory inventoryToupdate)
+        public Models.Inventory UpdateInventory(Models.Inventory quantityToUpdate)
         {
-            Inventory invToUpdate = new Inventory() {
-                Id = inventoryToupdate.Id,
-                ProductsId = inventoryToupdate.ProductsId,
-                VendorBranchesId = inventoryToupdate.VendorBranchesId,
-                Quantity = inventoryToupdate.Quantity
-            };
+            {
+                Inventory quantityUpdate = new Inventory()
+                {
+                    Id = quantityToUpdate.Id,
+                    Quantity = quantityToUpdate.Quantity
+                };
 
-            _context.Inventory.Update(invToUpdate);
-            _context.SaveChanges();
-            _context.ChangeTracker.Clear();
-            return invToUpdate;
+                _context.Inventory.Update(quantityUpdate);
+                _context.SaveChanges();
+                _context.ChangeTracker.Clear();
+
+
+                return new Inventory()
+                {
+                    Id = quantityToUpdate.Id,
+                    Quantity = quantityToUpdate.Quantity
+
+                };
+
+            }
         }
 
         public Products AddProducts(Products product)
@@ -265,6 +314,17 @@ namespace DL
             return vendor;
         }
 
+        public void Save()
+        {
+
+
+            _context.SaveChanges();
+
+
+            _context.ChangeTracker.Clear();
+
+            return;
+        }
 
 
         public List<VendorBranches> GetAllVendorBranches()
@@ -281,6 +341,7 @@ namespace DL
             ).ToList();
         }
 
+       
         public Products GetOneProductById(int id)
         {
             Products prodById =

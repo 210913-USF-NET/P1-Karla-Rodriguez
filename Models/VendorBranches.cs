@@ -11,15 +11,15 @@ namespace Models
         public string Name {get; set;}
 
         public string GrandCompany { get; set; }
-        public string CityState {get; set;} 
+        public string CityState {get; set;}
 
-        
+        public List<Inventory> Inventory { get; set; }
 
         public override string ToString()
         {
             return $"Id: {this.Id}, Name:{this.Name} , CityState: {this.CityState}";
         }
 
-        public List<Inventory> Inventories { get; set; }
+       
     }
 }

@@ -40,7 +40,10 @@ namespace P1BL
              _repo.RemoveCustomer(id);
         }
 
-
+        public void Save()
+        {
+            _repo.Save();
+        }
 
         public List<Products> GetAllProducts()
         {
@@ -68,22 +71,32 @@ namespace P1BL
             return _repo.AddOrder(order);
         }
 
-
+        public void custTest(int id)
+        {
+             _repo.custTest(id);
+        }
         public Inventory AddInventory(Inventory inventory)
         {
             return _repo.AddInventory(inventory);
         }
-        public Inventory UpdateInventory(Inventory invToupdate)
+        public Inventory UpdateInventory(Inventory quantityToUpdate)
         {
-            return _repo.UpdateInventory(invToupdate);
+            return _repo.UpdateInventory(quantityToUpdate);
         }
         public List<Inventory> GetAllInventory()
         {
             return _repo.GetAllInventory();
         }
 
+        public Inventory GetOneInventoryById(int id)
+        {
+            return _repo.GetOneInventoryById(id);
+        }
 
-
+        public void subtractFromStock(int id, int productsID, int VendorBranchesId, int quantity)
+        {
+            _repo.subtractFromStock(id, productsID, VendorBranchesId, quantity);
+        }
 
         public VendorBranches AddBranches(VendorBranches vendor)
         {

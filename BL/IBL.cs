@@ -18,7 +18,7 @@ namespace P1BL
 
         void RemoveCustomer(int id);
 
-
+        void Save();
 
 
         Products AddProducts(Products product);
@@ -28,14 +28,18 @@ namespace P1BL
         List<Products> SearchProducts(string queryStr);
 
 
+        Inventory GetOneInventoryById(int id);
 
+        void subtractFromStock(int id, int productsID, int VendorBranchesId, int quantity);
 
         Orders AddOrder(Orders orders);
 
 
         Inventory AddInventory(Inventory inventory);
 
-        Inventory UpdateInventory(Inventory invToupdate);
+        void custTest(int Id);
+
+        Inventory UpdateInventory(Inventory quantityToUpdate);
 
         List<Inventory> GetAllInventory();
 
