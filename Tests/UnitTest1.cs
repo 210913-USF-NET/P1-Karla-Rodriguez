@@ -9,7 +9,7 @@ namespace Tests
         [Fact]
         public void CustomersShouldCreate()
         {
-            
+
             Customers test = new Customers();
 
             Assert.NotNull(test);
@@ -43,6 +43,31 @@ namespace Tests
             Assert.Equal(testName, test.Name);
         }
 
+
+        [Fact]
+        public void InventoryShouldCreate()
+        {
+
+            Inventory test = new Inventory();
+
+            Assert.NotNull(test);
+        }
+
+
+        [Fact]
+        public void ProductsShouldSetValidDataAlways()
+        {
+            //Arrange
+            Products test = new Products();
+            string testDescription = "test products";
+
+            //Act
+            test.Description = testDescription;
+
+            //Assert
+            Assert.Equal(testDescription, test.Description);
+        }
+
         [Fact]
         public void LocationsShouldSetValidData()
         {
@@ -55,7 +80,7 @@ namespace Tests
 
             //Assert
             Assert.Equal(testName, test.Name);
-        }        
+        }
         [Fact]
         public void OrdersShouldCreate()
         {
@@ -69,23 +94,14 @@ namespace Tests
         [InlineData("")]
         [InlineData("123567890")]
         [InlineData("%$@^^")]
-        public void CustomersShouldNotSetInvalidChars(string input)
-        {
-            Customers test = new Customers();
 
-            Assert.Throws<InputInvalidException>(()=>test.FirstName = input);
-        }
 
         [Theory]
         [InlineData("")]
         [InlineData("123567890")]
         [InlineData("%$@^^")]
-        public void SurNameShouldNotSetInvalidChars(string input)
-        {
-            Customers test = new Customers();
 
-            Assert.Throws<InputInvalidException>(()=>test.LastName = input);
-        }
 
     }
 }
+

@@ -24,7 +24,7 @@ namespace WebUI.Controllers
                 _bl = bl;
             }
             // GET: CustomersController
-            public ActionResult CustIndex()
+            public ActionResult Index()
             {
                 List<CustomersVM> allCusto = _bl.GetAllCustomers()
                     .Select(c => new CustomersVM(c))

@@ -43,7 +43,7 @@ namespace Models
                 {
                     InputInvalidException e = new InputInvalidException("Racer name can't be empty");
                     Log.Warning(e.Message);
-                    throw e;
+                    NewMethod(e);
                 }
                 else if (!pattern.IsMatch(value))
                 {
@@ -54,6 +54,11 @@ namespace Models
                     _firstname = value;
                 }
             }
+        }
+
+        private static void NewMethod(InputInvalidException e)
+        {
+            throw e;
         }
 
         private string _lastname;

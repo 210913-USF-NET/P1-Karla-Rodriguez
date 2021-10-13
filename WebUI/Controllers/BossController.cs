@@ -32,6 +32,12 @@ namespace WebUI.Controllers
 
             // GET: BossController/Details/5
 
+            public ActionResult CustIndex()
+            {
+                List<Customers> allCusto = _bl.GetAllCustomers();
+                return View(allCusto);
+            }
+
 
 
             public ActionResult InvList()

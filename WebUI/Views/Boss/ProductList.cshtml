@@ -9,6 +9,9 @@
 <p>
     <a asp-action="ProductCreate">Create New</a>
 </p>
+<p>
+    <a asp-action="Index">Back to List</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -43,9 +46,10 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-               
-                @Html.ActionLink("Delete", "CreateOrder", "Product", new { id = item.Id }) 
+
                 
+                <a asp-action="Index">Back to List</a>
+
             </td>
         </tr>
 }

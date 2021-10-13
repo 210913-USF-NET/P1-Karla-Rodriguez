@@ -9,6 +9,9 @@
 <p>
     <a asp-action="InvCreate">Create New</a>
 </p>
+<p>
+    <a asp-action="Index">Back to List</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -28,25 +31,30 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductsId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VendorBranchesId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-              
-            </td>
-        </tr>
-}
-    </tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductsId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VendorBranchesId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                   
+
+                </td>
+            </tr>
+        }
+
+    
+           
+        
+</tbody>
 </table>

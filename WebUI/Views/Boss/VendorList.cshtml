@@ -9,6 +9,9 @@
 <p>
     <a asp-action="VendorCreate">Create New</a>
 </p>
+<p>
+    <a asp-action="Index">Back to List</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -43,9 +46,8 @@
                 @Html.DisplayFor(modelItem => item.CityState)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+             
+                
             </td>
         </tr>
 }

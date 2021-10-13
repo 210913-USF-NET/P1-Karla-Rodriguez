@@ -1,13 +1,13 @@
-﻿@model IEnumerable<WebUI.Models.CustomersVM>
+﻿@model IEnumerable<Models.Customers>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "CustIndex";
 }
 
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Index">Back to List</a>
 </p>
 <table class="table">
     <thead>
@@ -28,7 +28,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
@@ -43,10 +43,9 @@
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
             </td>
         </tr>
 }
+        <a asp-action="Index">Back to List</a>
     </tbody>
 </table>
