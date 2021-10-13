@@ -54,6 +54,22 @@ namespace WebUI.Controllers
                 _bl.AddInventory(inventory);
                 return RedirectToAction(nameof(InvList));
             }
+            catch(Exception e)
+            {
+                return View();
+            }
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, Inventory inventory)
+        {
+            try
+            {
+                _bl.UpdateInventory(inventory);
+                return RedirectToAction(nameof(InvList));
+            }
             catch
             {
                 return View();
@@ -67,7 +83,7 @@ namespace WebUI.Controllers
         }
 
 
-        public ActionResult Create()
+        public ActionResult VendorCreate()
         {
             return View();
         }

@@ -9,12 +9,15 @@ namespace DL.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
 
-            migrationBuilder.DropTable("LineItems");
+            migrationBuilder.DropTable("InventoryOrders");
+           
+            
+            
             migrationBuilder.DropTable("Inventory");
             migrationBuilder.DropTable("Orders");
-            migrationBuilder.DropTable("Products");
             migrationBuilder.DropTable("VendorBranches");
             migrationBuilder.DropTable("Customers");
+            migrationBuilder.DropTable("Products");
 
 
             migrationBuilder.CreateTable(
@@ -40,7 +43,8 @@ namespace DL.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: true),
                     Price = table.Column<decimal>(type: "numeric", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true)
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    InventoryId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -72,7 +76,7 @@ namespace DL.Migrations
                     VendorBranchesId = table.Column<int>(type: "integer", nullable: false),
                     ProductsId = table.Column<int>(type: "integer", nullable: false),
                     Quantity = table.Column<int>(type: "integer", nullable: false),
-                    Date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    DateandTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -92,19 +96,12 @@ namespace DL.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ProductsId = table.Column<int>(type: "integer", nullable: false),
-                    Products = table.Column<string>(type: "text", nullable: true),
                     VendorBranchesId = table.Column<int>(type: "integer", nullable: false),
                     Quantity = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Inventory", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Inventory_Products_ProductsId",
-                        column: x => x.ProductsId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Inventory_VendorBranches_VendorBranchesId",
                         column: x => x.VendorBranchesId,
@@ -134,11 +131,6 @@ namespace DL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Inventory_ProductsId",
-                table: "Inventory",
-                column: "ProductsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Inventory_VendorBranchesId",

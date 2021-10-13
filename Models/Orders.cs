@@ -16,8 +16,9 @@ namespace Models
         {
             this.CustomersId = custId;
             this.VendorBranchesId = veId;
-            this.Date = DateTime.Today;
+            this.DateandTime = DateTime.Now;
             
+
         }
 
         
@@ -34,7 +35,8 @@ namespace Models
 
         
 
-        public DateTime Date { get; set; }
+        public DateTime DateandTime { get; set; }
+        
 
         public override string ToString()
         {

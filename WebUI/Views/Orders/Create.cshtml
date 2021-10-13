@@ -1,24 +1,28 @@
 ﻿@model Models.Orders
 
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
 <h4>Orders</h4>
-<hr />
-
-
-    
-        
-    
+<hr/>
 
 <div class="row">
     @*< <b>@Html.DisplayFor(model => model.CustomerId)</b>**@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
-            @*<div class="form-group">
+            <div class="form-group">
+                <input asp-for="Id" type="hidden" class="form-control" />
+            </div>
+            <div class="form-group">
                 <label asp-for="CustomersId" class="control-label"></label>
                 <input asp-for="CustomersId" class="form-control" />
                 <span asp-validation-for="CustomersId" class="text-danger"></span>
-            </div>*@
+            </div>
 
             <div class="form-group">
                 <label asp-for="VendorBranchesId" class="control-label"></label>

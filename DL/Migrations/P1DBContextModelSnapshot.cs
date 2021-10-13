@@ -47,9 +47,6 @@ namespace DL.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Products")
-                        .HasColumnType("text");
-
                     b.Property<int>("ProductsId")
                         .HasColumnType("integer");
 
@@ -60,8 +57,6 @@ namespace DL.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductsId");
 
                     b.HasIndex("VendorBranchesId");
 
@@ -104,7 +99,7 @@ namespace DL.Migrations
                     b.Property<int>("CustomersId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime>("DateandTime")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("ProductsId")
@@ -132,6 +127,9 @@ namespace DL.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
+
+                    b.Property<int>("InventoryId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -167,12 +165,6 @@ namespace DL.Migrations
 
             modelBuilder.Entity("Models.Inventory", b =>
                 {
-                    b.HasOne("Models.Products", null)
-                        .WithMany("Inventory")
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Models.VendorBranches", null)
                         .WithMany("Inventories")
                         .HasForeignKey("VendorBranchesId")
@@ -206,11 +198,6 @@ namespace DL.Migrations
             modelBuilder.Entity("Models.Orders", b =>
                 {
                     b.Navigation("LineItems");
-                });
-
-            modelBuilder.Entity("Models.Products", b =>
-                {
-                    b.Navigation("Inventory");
                 });
 
             modelBuilder.Entity("Models.VendorBranches", b =>

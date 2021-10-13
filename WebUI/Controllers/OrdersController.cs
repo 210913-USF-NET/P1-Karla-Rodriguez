@@ -37,7 +37,7 @@ namespace WebUI.Controllers
         }
 
         // GET: OrdersController/Create
-        public ActionResult Order()
+        public ActionResult Create()
         {
             return View();
         }
@@ -46,7 +46,7 @@ namespace WebUI.Controllers
         // POST: ProductController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Order(Orders order)
+        public ActionResult Create(Orders order)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace WebUI.Controllers
             }
             catch(Exception e)
             {
-                return View();
+                return RedirectToAction("Index", "Home");
             }
         }
 

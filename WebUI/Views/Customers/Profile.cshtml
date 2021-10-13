@@ -1,0 +1,45 @@
+﻿@model WebUI.Models.CustomersVM
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/ProfileStyle.css" />
+</head>
+<h1>Profile</h1>
+
+<h4>Customers</h4>
+<hr />
+<form asp-action="Profile">
+    <div class="container mt-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-7">
+                <div class="card p-3 py-4">
+                    <div class="text-center"> <img src="https://media.defense.gov/2018/Nov/14/2002062952/-1/-1/0/181114-D-BD104-003.JPG" width="100" class="rounded-circle"> </div>
+                    <div class="text-center mt-3">
+                        <span class="bg-secondary p-1 px-4 rounded text-white"><@Html.DisplayFor(model => model.Id)</span>
+                        <span>
+                            @Html.DisplayNameFor(model => model.FirstName)
+                        </span>
+                        <div class="px-4 mt-1">
+                            <p class="fonts">Welcome back!! Remember to checkout the catalog for reference to Ids! </p>
+                        </div>
+
+                        <a href='@Url.Action("Create", "Orders")' class="btn btn-outline-primary px-4">Orders</a>
+                        @*<div class="buttons">
+                            <button class="btn btn-outline-primary px-4" input="submit" asp-area="" asp-controller="Orders" asp-action="Create"> Order</a></button>
+                        </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

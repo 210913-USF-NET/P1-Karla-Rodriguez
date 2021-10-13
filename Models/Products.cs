@@ -31,7 +31,7 @@ namespace Models
 
         
 
-        public List<Inventory> Inventory {get; set;}
+        public int InventoryId {get; set;}
 
         public override string ToString()
         {

@@ -36,8 +36,9 @@ namespace WebUI.Controllers
 
 
         // GET: CustomersController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Profile()
         {
+            _bl.GetOneCustomerById(currentCustomer.Id);
             return View();
         }
 
@@ -101,7 +102,7 @@ namespace WebUI.Controllers
                     {
                         return RedirectToAction("Index", "Boss");
                     }
-                    return RedirectToAction("Create", "Orders");
+                    return RedirectToAction("Profile", "Customers");
                 }
             }
             catch

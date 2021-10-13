@@ -1,0 +1,67 @@
+﻿body {
+    background-image: url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwallpaperaccess.com%2Fpastel-yellow-floral&psig=AOvVaw0eEU46Guf8Lmp4X0Y_Cm6P&ust=1634202568918000&source=images&cd=vfe&ved=0CAkQjRxqFwoTCMjjpouFx_MCFQAAAAAdAAAAABAD");
+    background-color: #ccccccc;
+}
+
+.card {
+    border: none;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    cursor: pointer
+}
+
+    .card:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 4px;
+        height: 100%;
+        background-color: #fef5e8;
+        transform: scaleY(1);
+        transition: all 0.5s;
+        transform-origin: bottom
+    }
+
+    .card:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 4px;
+        height: 100%;
+        background-color: #ff6a00;
+        transform: scaleY(0);
+        transition: all 0.5s;
+        transform-origin: bottom
+    }
+
+    .card:hover::after {
+        transform: scaleY(1)
+    }
+
+.fonts {
+    font-size: 11px
+}
+
+
+
+.buttons button:nth-child(1) {
+    border: 1px solid #ff6a00 !important;
+    color: #ff6a00;
+    height: 40px
+}
+
+    .buttons button:nth-child(1):hover {
+        border: 1px solid #ff6a00 !important;
+        color: #fff;
+        height: 40px;
+        background-color: #ff6a00
+    }
+
+.buttons button:nth-child(2) {
+    border: 1px solid #ff6a00A !important;
+    background-color: #ff6a00;
+    color: #fff;
+    h
